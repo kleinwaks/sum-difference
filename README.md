@@ -2,7 +2,7 @@
 
 Logan J. Kleinwaks
 
-For every abelian group and all finite sets $X,Y$,
+For all finite sets $X,Y$ of an abelian group, we prove
 
 $$
 |X-Y|\\le |X+Y|^{\\lambda\_\\infty},\\qquad
@@ -10,21 +10,16 @@ $$
 $$
 
 A universal two-set exponent $\\lambda$ over the integers implies
-$C\_{3a}\\le 2-1/\\lambda$. Consequently,
+$C\_{3a}\\le 2-1/\\lambda$, where $C_{3a}$ is the Gyarmati--Hennecart--Ruzsa constant defined in the [Optimization Constants in Mathematics repository](https://teorth.github.io/optimizationproblems/constants/3a.html). Consequently,
 
 $$
 C\_{3a}\\le\\frac{13524e-7359}{9451e-3286}=1.312373302115\\ldots.
 $$
 
-The pair inequality includes empty sets and groups with torsion and has no
-multiplicative constant. Substituting $-Y$ for $Y$ gives the reverse inequality
-with the same exponent. The paper defines the small-sumset exponent precisely;
-its finite multiscale estimate also applies for each fixed doubling constant.
+This improves on the classical exponents $\\lambda\\le \frac{3}{2}$ and $C_{3a}\\le \frac{4}{3}$.
 
-Read the [paper](paper/sum-difference.pdf) or its [LaTeX source](paper/sum-difference.tex).
-The [constant page](https://teorth.github.io/optimizationproblems/constants/3a.html)
-provides the problem's context. The paper gives the prior-work attribution,
-proof outline, exact certificates, and correspondence with Lean declarations.
+For details, see the [proof paper](paper/sum-difference.pdf) or its [LaTeX source](paper/sum-difference.tex).
+The proof paper includes a correspondence with Lean declarations.
 
 ## Reference environment and verification
 
