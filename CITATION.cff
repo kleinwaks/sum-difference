@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper when using these results."
+type: software
+title: "Improved sum–difference inequalities in abelian groups"
+authors:
+  - family-names: Kleinwaks
+    given-names: Logan J.
+repository-code: "https://github.com/kleinwaks/sum-difference"
+license: Apache-2.0
+keywords:
+  - additive combinatorics
+  - sumsets
+  - difference sets
+  - entropy
+  - Lean
+preferred-citation:
+  type: unpublished
+  title: "Improved sum–difference inequalities in abelian groups"
+  authors:
+    - family-names: Kleinwaks
+      given-names: Logan J.
+  year: 2026
+  url: "https://github.com/kleinwaks/sum-difference"
