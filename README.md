@@ -10,7 +10,7 @@ $$
 $$
 
 A universal two-set exponent $\\lambda$ over the integers implies
-$C\_{3a}\\le 2-1/\\lambda$, where $C_{3a}$ is the Gyarmati--Hennecart--Ruzsa constant defined in the [Optimization Constants in Mathematics repository](https://teorth.github.io/optimizationproblems/constants/3a.html). Consequently,
+$C\_{3a}\\le 2-1/\\lambda$, where $C_{3a}$ is the Gyarmati-Hennecart-Ruzsa constant defined in the [Optimization Constants in Mathematics repository](https://teorth.github.io/optimizationproblems/constants/3a.html). Consequently,
 
 $$
 C\_{3a}\\le\\frac{13524e-7359}{9451e-3286}=1.312373302115\\ldots.
