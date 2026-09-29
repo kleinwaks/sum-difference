@@ -23,8 +23,8 @@ The proof paper includes a correspondence with Lean declarations.
 
 ## Reference environment and verification
 
-* Lean: `leanprover/lean4:v4.28.0`
-* Mathlib: `8f9d9cff6bd728b17a24e163c9402775d9e6a365`
+* Lean: `leanprover/lean4:v4.28.0` (original formalization), `leanprover/lean4:v4.35.0-rc2` (Palomar formalization)
+* Mathlib: `8f9d9cff6bd728b17a24e163c9402775d9e6a365` (original formalization), `065356127b1dc0016f66b7283ce0ce2c4055aa55` (Palomar formalization)
 * The remaining dependencies are pinned in `lake-manifest.json`.
 
 Install Lean's [elan toolchain manager](https://github.com/leanprover/elan).
