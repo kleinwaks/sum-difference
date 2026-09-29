@@ -3,12 +3,15 @@ version: "v0.4"
 project:
   name: "Improved sum–difference inequalities in abelian groups"
   description: >-
-    For every abelian group and finite X,Y, the constant-free inequality
-    |X-Y| <= |X+Y|^lambda holds with lambda = (9451e-3286)/(5378e+787).
+    For all finite subsets X,Y of an abelian group, 
+    |X-Y| <= |X+Y|^lambda with lambda = (9451e-3286)/(5378e+787).
     A multiscale transfer gives the upper bound
     (13524e-7359)/(9451e-3286) for the Gyarmati–Hennecart–Ruzsa
-    small-sumset exponent. The proof combines a two-copy non-Shannon
-    entropy certificate with an explicit limiting array certificate.
+    small-sumset exponent. The proof of the first result combines a
+    coupling with distinct differences, entropy inequalities for independent
+    sums, a finite certificate using non-Shannon inequalities, and an explicit
+    limiting certificate. The transfer uses localization and the Plünnecke-Ruzsa
+    inequality over a sequence of scales.
   authors: ["Logan J. Kleinwaks"]
   responsible_maintainers: ["Logan J. Kleinwaks"]
   license: "Apache-2.0"
