@@ -6,12 +6,12 @@ public import SumDifference.ThetaLocalization
 /-!
 # Part I: the multi-scale transfer `θ ≤ 2 − 1/λ`
 
-§3 of the proof paper.  If every pair of finite sets of integers satisfies
-`|X − Y| ≤ |X + Y|^λ`, then `θ ≤ 2 − 1/λ` (`theta_le_of_pair_ceiling`, Theorem 2.2); in terms of
+§2 of the proof paper.  If every pair of finite sets of integers satisfies
+`|X − Y| ≤ |X + Y|^λ`, then `θ ≤ 2 − 1/λ` (`theta_le_of_pair_ceiling`, Theorem 1.2); in terms of
 the pair exponent `λ_*` (the pair-exponent definition, `lamSup`) this is `θ ≤ 2 − 1/λ_*`
 (`theta_le_two_sub_inv_lamSup`).  The proof localises at the scales `D = hB − hB`,
-`h = 1, 4, …, 4^J` (Lemma 3.4, Proposition 3.5) and uses Plünnecke–Ruzsa.  The general lemmas
-allow a constant `C` in the pair ceiling; the paper and the proof of Theorem 2.2 use `C = 1`.
+`h = 1, 4, …, 4^J` (Lemma 2.4, Proposition 2.5) and uses Plünnecke–Ruzsa.  The general lemmas
+allow a constant `C` in the pair ceiling; the paper and the proof of Theorem 1.2 use `C = 1`.
 -/
 
 public section
@@ -47,7 +47,7 @@ theorem sub_add_sub_eq (B : Finset G) (h : ℕ) :
     sub_add_sub_comm, ← add_nsmul, sub_sub, ← succ_nsmul]
   congr 2 <;> ring_nf
 
-/-- **One scale** (Lemma 3.4).  If every `X ⊆ A` obeys `|X − B| ≤ C |X + B|^λ`, then for `h ≥ 1`
+/-- **One scale** (Lemma 2.4).  If every `X ⊆ A` obeys `|X − B| ≤ C |X + B|^λ`, then for `h ≥ 1`
 `|A − B| · |hB − hB| ≤ C^{1/λ} |4hB − 4hB|^{2 − 1/λ} |A + B|`. -/
 theorem card_sub_mul_le_scale {A B : Finset G} (hB : B.Nonempty) {lam C : ℝ} (hlam : 1 ≤ lam)
     (hC : 0 < C) (hpair : ∀ X ⊆ A, (#(X - B) : ℝ) ≤ C * (#(X + B) : ℝ) ^ lam) {h : ℕ}
@@ -79,7 +79,7 @@ theorem card_sub_mul_le_scale {A B : Finset G} (hB : B.Nonempty) {lam C : ℝ} (
     _ ≤ C ^ (1 / lam) * (M ^ (1 - 1 / lam) * #(A + B) * M) := by gcongr
     _ = C ^ (1 / lam) * M ^ (2 - 1 / lam) * #(A + B) := by rw [hsplit]; ring
 
-/-- **Telescoping over the scales `4^j`** (proof of Proposition 3.5).  `|A − B|^J · |B − B| ≤ (C^{1/λ} |A + B|)^J ·
+/-- **Telescoping over the scales `4^j`** (proof of Proposition 2.5).  `|A − B|^J · |B − B| ≤ (C^{1/λ} |A + B|)^J ·
 |4^J B − 4^J B|^{1 + J(1 − 1/λ)}`. -/
 theorem card_sub_pow_mul_le_telescope {A B : Finset G} (hB : B.Nonempty) {lam C : ℝ}
     (hlam : 1 ≤ lam) (hC : 0 < C)
@@ -137,7 +137,7 @@ theorem card_sub_pow_mul_le_telescope {A B : Finset G} (hB : B.Nonempty) {lam C 
             rw [e2]; ring
   simpa [m] using key J
 
-/-- **Multi-scale inequality** (Proposition 3.5).  If `|A + B| ≤ K|A|` and every `X ⊆ A` obeys
+/-- **Multi-scale inequality** (Proposition 2.5).  If `|A + B| ≤ K|A|` and every `X ⊆ A` obeys
 `|X − B| ≤ C |X + B|^λ`, then for every `J`
 `|A − B|^J ≤ (C^{1/λ} |A + B|)^J · (K^{2·4^J} |A|)^{1 + J(1 − 1/λ)}`. -/
 theorem card_sub_pow_le_multiscale {A B : Finset G} {K lam C : ℝ} (hA : A.Nonempty)
@@ -251,7 +251,7 @@ lemma one_le_of_pair_ceiling {lam : ℝ}
   rw [Real.rpow_one] at this
   linarith
 
-/-- **Theorem 2.2, first statement.**  If `|X − Y| ≤ |X + Y|^λ` for all finite sets of integers
+/-- **Theorem 1.2, first statement.**  If `|X − Y| ≤ |X + Y|^λ` for all finite sets of integers
 `X`, `Y` (no constant), then `θ ≤ 2 − 1/λ`. -/
 theorem theta_le_of_pair_ceiling {lam : ℝ}
     (hpair : ∀ X Y : Finset ℤ, (#(X - Y) : ℝ) ≤ (#(X + Y) : ℝ) ^ lam) : theta ≤ 2 - 1 / lam := by
@@ -298,7 +298,7 @@ lemma lamSup_le_of_pair_ceiling {lam : ℝ}
 lemma one_le_lamSup : 1 ≤ lamSup :=
   le_csInf ⟨2, two_mem_pairCeilingExponents⟩ fun _ h => one_le_of_pair_ceiling h
 
-/-- **Theorem 2.2, second statement**: `θ ≤ 2 − 1/λ_*`. -/
+/-- **Theorem 1.2, second statement**: `θ ≤ 2 − 1/λ_*`. -/
 theorem theta_le_two_sub_inv_lamSup : theta ≤ 2 - 1 / lamSup := by
   have h2 : theta ≤ 2 - 1 / 2 := theta_le_of_pair_ceiling two_mem_pairCeilingExponents
   have hl := one_le_lamSup

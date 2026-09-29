@@ -8,7 +8,7 @@ Shannon entropy (natural logarithm) of `f`.
 
 Main results:
 
-* `ent_le_ent_mul` — `H(X) ≤ H(X + Y)` for independent `X, Y` (fact (E4) of §4.1 of
+* `ent_le_ent_mul` — `H(X) ≤ H(X + Y)` for independent `X, Y` (fact (E4) of §3.1 of
   the proof paper);
 * `ent_madiman` — **Madiman's submodularity** `H(X + Y + Z) + H(Y) ≤ H(X + Y) + H(Y + Z)`
   for independent `X, Y, Z` (fact (E5));
@@ -74,16 +74,16 @@ variable {G : Type*} [AddCommGroup G] [DecidableEq G]
 
 /-- A law on `G`: nonnegative coefficients with total mass `1`. -/
 def IsLaw (f : AddMonoidAlgebra ℝ G) : Prop :=
-  (∀ x, 0 ≤ f x) ∧ ∑ x ∈ f.support, f x = 1
+  (∀ x, 0 ≤ f.coeff x) ∧ ∑ x ∈ f.coeff.support, f.coeff x = 1
 
 /-- Shannon entropy of a law. -/
 noncomputable def ent (f : AddMonoidAlgebra ℝ G) : ℝ :=
-  entropy f.support (⇑f)
+  entropy f.coeff.support (⇑f.coeff)
 
 omit [AddCommGroup G] [DecidableEq G] in
 /-- The entropy can be computed over any finite superset of the support. -/
 theorem entropy_eq_ent_of_subset {f : AddMonoidAlgebra ℝ G} {S : Finset G}
-    (h : f.support ⊆ S) : entropy S (⇑f) = ent f := by
+    (h : f.coeff.support ⊆ S) : entropy S (⇑f.coeff) = ent f := by
   simp only [ent, entropy]
   refine (Finset.sum_subset h fun x _ hx => ?_).symm
   rw [Finsupp.notMem_support_iff.mp hx, Real.negMulLog_zero]
@@ -91,9 +91,9 @@ theorem entropy_eq_ent_of_subset {f : AddMonoidAlgebra ℝ G} {S : Finset G}
 omit [AddCommGroup G] in
 /-- A random variable whose law is `h` has entropy `ent h`. -/
 theorem pushEntropy_eq_ent {ι : Type*} {Ω : Finset ι} {p : ι → ℝ} {F : ι → G}
-    {h : AddMonoidAlgebra ℝ G} (hw : ∀ z, pushWeight Ω p F z = h z) :
+    {h : AddMonoidAlgebra ℝ G} (hw : ∀ z, pushWeight Ω p F z = h.coeff z) :
     pushEntropy Ω p F = ent h := by
-  have hsub : h.support ⊆ Ω.image F := by
+  have hsub : h.coeff.support ⊆ Ω.image F := by
     intro z hz
     rw [Finsupp.mem_support_iff, ← hw z] at hz
     obtain ⟨i, hi, -⟩ := Finset.exists_ne_zero_of_sum_ne_zero hz
@@ -104,14 +104,14 @@ theorem pushEntropy_eq_ent {ι : Type*} {Ω : Finset ι} {p : ι → ℝ} {F : �
   exact Finset.sum_congr rfl fun z _ => by rw [hw z]
 
 omit [AddCommGroup G] [DecidableEq G] in
-theorem IsLaw.nonneg {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (x : G) : 0 ≤ f x := hf.1 x
+theorem IsLaw.nonneg {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (x : G) : 0 ≤ f.coeff x := hf.1 x
 
 omit [AddCommGroup G] in
 /-- The identity random variable on the support of a law has the law itself. -/
 theorem pushWeight_support_id (f : AddMonoidAlgebra ℝ G) (z : G) :
-    pushWeight f.support (⇑f) id z = f z := by
+    pushWeight f.coeff.support (⇑f.coeff) id z = f.coeff z := by
   simp only [pushWeight, id]
-  by_cases hz : z ∈ f.support
+  by_cases hz : z ∈ f.coeff.support
   · rw [Finset.sum_eq_single z (fun j hj hjz => absurd (Finset.mem_filter.mp hj).2 hjz)
       (fun hz' => (hz' (Finset.mem_filter.mpr ⟨hz, rfl⟩)).elim)]
   · rw [Finsupp.notMem_support_iff.mp hz]
@@ -121,14 +121,14 @@ theorem pushWeight_support_id (f : AddMonoidAlgebra ℝ G) (z : G) :
 
 omit [AddCommGroup G] in
 theorem ent_eq_pushEntropy_id (f : AddMonoidAlgebra ℝ G) :
-    ent f = pushEntropy f.support (⇑f) id :=
+    ent f = pushEntropy f.coeff.support (⇑f.coeff) id :=
   (pushEntropy_eq_ent (pushWeight_support_id f)).symm
 
 omit [AddCommGroup G] in
 /-- A law with the same weights as a pushforward is supported in the image. -/
 theorem support_subset_image_of_pushWeight {ι : Type*} {Ω : Finset ι} {p : ι → ℝ} {F : ι → G}
-    {h : AddMonoidAlgebra ℝ G} (hw : ∀ z, pushWeight Ω p F z = h z) :
-    h.support ⊆ Ω.image F := by
+    {h : AddMonoidAlgebra ℝ G} (hw : ∀ z, pushWeight Ω p F z = h.coeff z) :
+    h.coeff.support ⊆ Ω.image F := by
   intro z hz
   rw [Finsupp.mem_support_iff, ← hw z] at hz
   obtain ⟨i, hi, -⟩ := Finset.exists_ne_zero_of_sum_ne_zero hz
@@ -139,7 +139,7 @@ omit [AddCommGroup G] in
 /-- The pushforward of a probability law is a law. -/
 theorem isLaw_of_pushWeight {ι : Type*} {Ω : Finset ι} {p : ι → ℝ} {F : ι → G}
     {h : AddMonoidAlgebra ℝ G} (hp : ∀ i ∈ Ω, 0 ≤ p i) (hsum : ∑ i ∈ Ω, p i = 1)
-    (hw : ∀ z, pushWeight Ω p F z = h z) : IsLaw h := by
+    (hw : ∀ z, pushWeight Ω p F z = h.coeff z) : IsLaw h := by
   refine ⟨fun x => hw x ▸ pushWeight_nonneg hp x, ?_⟩
   rw [Finset.sum_subset (support_subset_image_of_pushWeight hw)
     (fun x _ hx => Finsupp.notMem_support_iff.mp hx), ← hsum, ← sum_pushWeight Ω p F]
@@ -147,19 +147,19 @@ theorem isLaw_of_pushWeight {ι : Type*} {Ω : Finset ι} {p : ι → ℝ} {F : 
 
 omit [AddCommGroup G] [DecidableEq G] in
 theorem IsLaw.nonneg_on {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) :
-    ∀ x ∈ f.support, 0 ≤ f x := fun x _ => hf.1 x
+    ∀ x ∈ f.coeff.support, 0 ≤ f.coeff x := fun x _ => hf.1 x
 
 /-- **Convolution as a pushforward.**  If `F₁` has law `h₁` and `F₂` has law `h₂` (on two
 independent coordinates), then `F₁ + F₂` has law `h₁ * h₂`. -/
 theorem pushWeight_add_eq_mul {α β : Type*} {Ω₁ : Finset α} {Ω₂ : Finset β}
     {w₁ : α → ℝ} {w₂ : β → ℝ} {F₁ : α → G} {F₂ : β → G} {h₁ h₂ : AddMonoidAlgebra ℝ G}
-    (hw₁ : ∀ u, pushWeight Ω₁ w₁ F₁ u = h₁ u) (hw₂ : ∀ v, pushWeight Ω₂ w₂ F₂ v = h₂ v)
+    (hw₁ : ∀ u, pushWeight Ω₁ w₁ F₁ u = h₁.coeff u) (hw₂ : ∀ v, pushWeight Ω₂ w₂ F₂ v = h₂.coeff v)
     (z : G) :
-    pushWeight (Ω₁ ×ˢ Ω₂) (productLaw w₁ w₂) (fun ω => F₁ ω.1 + F₂ ω.2) z = (h₁ * h₂) z := by
+    pushWeight (Ω₁ ×ˢ Ω₂) (productLaw w₁ w₂) (fun ω => F₁ ω.1 + F₂ ω.2) z = (h₁ * h₂).coeff z := by
   classical
-  rw [AddMonoidAlgebra.mul_apply_left, Finsupp.sum]
+  rw [AddMonoidAlgebra.coeff_mul_apply_left, Finsupp.sum]
   have step1 : pushWeight (Ω₁ ×ˢ Ω₂) (productLaw w₁ w₂) (fun ω => F₁ ω.1 + F₂ ω.2) z
-      = ∑ i ∈ Ω₁, w₁ i * h₂ (-F₁ i + z) := by
+      = ∑ i ∈ Ω₁, w₁ i * h₂.coeff (-F₁ i + z) := by
     simp only [pushWeight, productLaw]
     rw [Finset.sum_filter, Finset.sum_product]
     refine Finset.sum_congr rfl fun i _ => ?_
@@ -170,7 +170,7 @@ theorem pushWeight_add_eq_mul {α β : Type*} {Ω₁ : Finset α} {Ω₂ : Finse
       simp [hc']
     · have hc' : ¬ F₂ j = -F₁ i + z := fun h => hc (by rw [h]; abel)
       simp [hc, hc']
-  have step2 : ∑ i ∈ Ω₁, w₁ i * h₂ (-F₁ i + z) = ∑ u ∈ Ω₁.image F₁, h₁ u * h₂ (-u + z) := by
+  have step2 : ∑ i ∈ Ω₁, w₁ i * h₂.coeff (-F₁ i + z) = ∑ u ∈ Ω₁.image F₁, h₁.coeff u * h₂.coeff (-u + z) := by
     rw [← Finset.sum_fiberwise_of_maps_to (g := F₁) (t := Ω₁.image F₁)
       (fun i hi => Finset.mem_image_of_mem F₁ hi)]
     refine Finset.sum_congr rfl fun u _ => ?_
@@ -186,7 +186,7 @@ omit [AddCommGroup G] in
 `ent h₁ + ent h₂`. -/
 theorem pushEntropy_pair_eq {β : Type*} [DecidableEq β] {Ω : Finset β} {p : β → ℝ}
     {F : β → G × G} {h₁ h₂ : AddMonoidAlgebra ℝ G} (hh₁ : IsLaw h₁) (hh₂ : IsLaw h₂)
-    (hw : ∀ u v, pushWeight Ω p F (u, v) = h₁ u * h₂ v) :
+    (hw : ∀ u v, pushWeight Ω p F (u, v) = h₁.coeff u * h₂.coeff v) :
     pushEntropy Ω p F = ent h₁ + ent h₂ := by
   classical
   have hout : ∀ c ∉ Ω.image F, pushWeight Ω p F c = 0 := by
@@ -195,13 +195,13 @@ theorem pushEntropy_pair_eq {β : Type*} [DecidableEq β] {Ω : Finset β} {p : 
     obtain ⟨hiΩ, hic⟩ := Finset.mem_filter.mp hi
     exact absurd (Finset.mem_image.mpr ⟨i, hiΩ, hic⟩) hc
   have e1 : pushEntropy Ω p F
-      = ∑ c ∈ Ω.image F ∪ h₁.support ×ˢ h₂.support, Real.negMulLog (h₁ c.1 * h₂ c.2) := by
-    have hw' : ∀ c, pushWeight Ω p F c = h₁ c.1 * h₂ c.2 := fun c => hw c.1 c.2
+      = ∑ c ∈ Ω.image F ∪ h₁.coeff.support ×ˢ h₂.coeff.support, Real.negMulLog (h₁.coeff c.1 * h₂.coeff c.2) := by
+    have hw' : ∀ c, pushWeight Ω p F c = h₁.coeff c.1 * h₂.coeff c.2 := fun c => hw c.1 c.2
     simp only [pushEntropy, entropy, hw']
     refine Finset.sum_subset Finset.subset_union_left fun c _ hc => ?_
     rw [← hw' c, hout _ hc, Real.negMulLog_zero]
-  have e2 : ∑ c ∈ Ω.image F ∪ h₁.support ×ˢ h₂.support, Real.negMulLog (h₁ c.1 * h₂ c.2)
-      = entropy (h₁.support ×ˢ h₂.support) (fun c => h₁ c.1 * h₂ c.2) := by
+  have e2 : ∑ c ∈ Ω.image F ∪ h₁.coeff.support ×ˢ h₂.coeff.support, Real.negMulLog (h₁.coeff c.1 * h₂.coeff c.2)
+      = entropy (h₁.coeff.support ×ˢ h₂.coeff.support) (fun c => h₁.coeff c.1 * h₂.coeff c.2) := by
     refine (Finset.sum_subset Finset.subset_union_right fun c _ hc => ?_).symm
     rw [Finset.mem_product, not_and_or] at hc
     rcases hc with hc | hc
@@ -212,8 +212,8 @@ theorem pushEntropy_pair_eq {β : Type*} [DecidableEq β] {Ω : Finset β} {p : 
 
 /-- `f * g` is the law of `x + y` under the product of `f` and `g`. -/
 theorem pushWeight_mul (f g : AddMonoidAlgebra ℝ G) (z : G) :
-    pushWeight (f.support ×ˢ g.support) (productLaw (⇑f) (⇑g))
-      (fun ω => ω.1 + ω.2) z = (f * g) z :=
+    pushWeight (f.coeff.support ×ˢ g.coeff.support) (productLaw (⇑f.coeff) (⇑g.coeff))
+      (fun ω => ω.1 + ω.2) z = (f * g).coeff z :=
   pushWeight_add_eq_mul (F₁ := id) (F₂ := id) (pushWeight_support_id f)
     (pushWeight_support_id g) z
 
@@ -224,9 +224,9 @@ theorem IsLaw.mul {f g : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw g) :
 
 theorem isLaw_one : IsLaw (1 : AddMonoidAlgebra ℝ G) := by
   refine ⟨fun x => ?_, ?_⟩
-  · rw [AddMonoidAlgebra.one_def, Finsupp.single_apply]
+  · rw [AddMonoidAlgebra.one_def, AddMonoidAlgebra.coeff_single, Finsupp.single_apply]
     split_ifs <;> norm_num
-  · rw [AddMonoidAlgebra.one_def, Finsupp.support_single_ne_zero _ one_ne_zero]
+  · rw [AddMonoidAlgebra.one_def, AddMonoidAlgebra.coeff_single, Finsupp.support_single _ one_ne_zero]
     simp
 
 theorem IsLaw.pow {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (n : ℕ) : IsLaw (f ^ n) := by
@@ -235,8 +235,8 @@ theorem IsLaw.pow {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (n : ℕ) : IsLaw 
   | succ n ih => rw [pow_succ]; exact ih.mul hf
 
 theorem ent_mul_eq_pushEntropy (f g : AddMonoidAlgebra ℝ G) :
-    ent (f * g) = pushEntropy (f.support ×ˢ g.support)
-      (productLaw (⇑f) (⇑g)) (fun ω => ω.1 + ω.2) :=
+    ent (f * g) = pushEntropy (f.coeff.support ×ˢ g.coeff.support)
+      (productLaw (⇑f.coeff) (⇑g.coeff)) (fun ω => ω.1 + ω.2) :=
   (pushEntropy_eq_ent (pushWeight_mul f g)).symm
 
 /-- **Adding an independent summand does not decrease entropy**: `H(X) ≤ H(X + Y)`. -/
@@ -246,16 +246,16 @@ theorem ent_le_ent_mul {f g : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw
   have hp := productLaw_nonneg hf.nonneg_on hg.nonneg_on
   have hs := productLaw_sum hf.2 hg.2
   -- `H(X + Y, Y) = H(X, Y) = H(X) + H(Y)`
-  have h1 : pushEntropy (f.support ×ˢ g.support) (productLaw (⇑f) (⇑g))
+  have h1 : pushEntropy (f.coeff.support ×ˢ g.coeff.support) (productLaw (⇑f.coeff) (⇑g.coeff))
       (fun ω => (ω.1 + ω.2, ω.2))
-      = pushEntropy (f.support ×ˢ g.support) (productLaw (⇑f) (⇑g))
+      = pushEntropy (f.coeff.support ×ˢ g.coeff.support) (productLaw (⇑f.coeff) (⇑g.coeff))
       (fun ω => (id ω.1, id ω.2)) :=
     pushEntropy_eq_of_comp hp (fun c : G × G => (c.1 - c.2, c.2))
       (fun c : G × G => (c.1 + c.2, c.2)) (fun ω _ => by simp) (fun ω _ => rfl)
   rw [pushEntropy_productLaw_pair hf.nonneg_on hg.nonneg_on hf.2 hg.2, ← ent_eq_pushEntropy_id,
     ← ent_eq_pushEntropy_id] at h1
   have h2 := pushEntropy_pair_le hp hs (fun ω : G × G => ω.1 + ω.2) (fun ω : G × G => ω.2)
-  have h3 : pushEntropy (f.support ×ˢ g.support) (productLaw (⇑f) (⇑g))
+  have h3 : pushEntropy (f.coeff.support ×ˢ g.coeff.support) (productLaw (⇑f.coeff) (⇑g.coeff))
       (fun ω => ω.2) = ent g := by
     exact (pushEntropy_productLaw_snd hf.nonneg_on hg.nonneg_on hf.2 hg.2 (id : G → G)).trans
       (ent_eq_pushEntropy_id g).symm
@@ -267,11 +267,11 @@ theorem ent_le_ent_mul {f g : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw
 theorem ent_madiman {f g k : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw g)
     (hk : IsLaw k) : ent (f * g * k) + ent g ≤ ent (f * g) + ent (g * k) := by
   classical
-  set S := f.support
-  set T := g.support
-  set U := k.support
-  set r : G × G → ℝ := productLaw (⇑g) (⇑k) with hr
-  set P : G × G × G → ℝ := productLaw (⇑f) r with hP
+  set S := f.coeff.support
+  set T := g.coeff.support
+  set U := k.coeff.support
+  set r : G × G → ℝ := productLaw (⇑g.coeff) (⇑k.coeff) with hr
+  set P : G × G × G → ℝ := productLaw (⇑f.coeff) r with hP
   set Ω := S ×ˢ (T ×ˢ U) with hΩ
   have hr0 : ∀ j ∈ T ×ˢ U, 0 ≤ r j := productLaw_nonneg hg.nonneg_on hk.nonneg_on
   have hrs : ∑ j ∈ T ×ˢ U, r j = 1 := productLaw_sum hg.2 hk.2
@@ -318,8 +318,8 @@ theorem ent_madiman {f g k : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw 
         (fun c : G × G => (c.1 + c.2, c.2)) (fun ω _ => by simp; abel)
         (fun ω _ => Prod.ext (add_assoc _ _ _) rfl)
     rw [e]
-    refine Eq.trans (pushEntropy_reindex (p' := productLaw (productLaw (⇑f) (⇑g))
-      (⇑k)) (fun ω : G × G × G => ((ω.1, ω.2.1), ω.2.2))
+    refine Eq.trans (pushEntropy_reindex (p' := productLaw (productLaw (⇑f.coeff) (⇑g.coeff))
+      (⇑k.coeff)) (fun ω : G × G × G => ((ω.1, ω.2.1), ω.2.2))
       (fun a _ b _ hab => by
         simp only [Prod.mk.injEq] at hab
         exact Prod.ext hab.1.1 (Prod.ext hab.1.2 hab.2))
@@ -340,7 +340,7 @@ theorem ent_madiman {f g k : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw 
 
 /-- The law of `X + Y` lives on `supp X + supp Y`. -/
 theorem ent_mul_le_log_card {f g : AddMonoidAlgebra ℝ G} (hf : IsLaw f) (hg : IsLaw g)
-    {X Y : Finset G} (hX : f.support ⊆ X) (hY : g.support ⊆ Y) :
+    {X Y : Finset G} (hX : f.coeff.support ⊆ X) (hY : g.coeff.support ⊆ Y) :
     ent (f * g) ≤ Real.log #(X + Y) := by
   rw [ent_mul_eq_pushEntropy]
   refine pushEntropy_le_log_card (productLaw_nonneg hf.nonneg_on hg.nonneg_on)
@@ -360,17 +360,17 @@ noncomputable def margSnd (Γ : Finset (G × G)) : AddMonoidAlgebra ℝ G :=
 
 omit [AddCommGroup G] in
 theorem pushWeight_fst_eq_margFst (Γ : Finset (G × G)) (z : G) :
-    pushWeight Γ (fun _ => (#Γ : ℝ)⁻¹) Prod.fst z = margFst Γ z := by
+    pushWeight Γ (fun _ => (#Γ : ℝ)⁻¹) Prod.fst z = (margFst Γ).coeff z := by
   simp only [pushWeight, margFst, Finset.sum_filter]
-  rw [Finsupp.finset_sum_apply]
-  simp [AddMonoidAlgebra.single_apply]
+  rw [AddMonoidAlgebra.coeff_sum, Finsupp.finsetSum_apply]
+  simp [AddMonoidAlgebra.coeff_single, Finsupp.single_apply]
 
 omit [AddCommGroup G] in
 theorem pushWeight_snd_eq_margSnd (Γ : Finset (G × G)) (z : G) :
-    pushWeight Γ (fun _ => (#Γ : ℝ)⁻¹) Prod.snd z = margSnd Γ z := by
+    pushWeight Γ (fun _ => (#Γ : ℝ)⁻¹) Prod.snd z = (margSnd Γ).coeff z := by
   simp only [pushWeight, margSnd, Finset.sum_filter]
-  rw [Finsupp.finset_sum_apply]
-  simp [AddMonoidAlgebra.single_apply]
+  rw [AddMonoidAlgebra.coeff_sum, Finsupp.finsetSum_apply]
+  simp [AddMonoidAlgebra.coeff_single, Finsupp.single_apply]
 
 omit [AddCommGroup G] [DecidableEq G] in
 theorem uniform_sum {ι : Type*} {Γ : Finset ι} (hΓ : Γ.Nonempty) :
@@ -389,7 +389,7 @@ theorem isLaw_margSnd {Γ : Finset (G × G)} (hΓ : Γ.Nonempty) : IsLaw (margSn
 
 omit [AddCommGroup G] in
 theorem support_margFst_subset {Γ : Finset (G × G)} {X Y : Finset G} (h : Γ ⊆ X ×ˢ Y) :
-    (margFst Γ).support ⊆ X := by
+    (margFst Γ).coeff.support ⊆ X := by
   intro z hz
   obtain ⟨q, hq, rfl⟩ := Finset.mem_image.mp
     (support_subset_image_of_pushWeight (pushWeight_fst_eq_margFst Γ) hz)
@@ -397,7 +397,7 @@ theorem support_margFst_subset {Γ : Finset (G × G)} {X Y : Finset G} (h : Γ �
 
 omit [AddCommGroup G] in
 theorem support_margSnd_subset {Γ : Finset (G × G)} {X Y : Finset G} (h : Γ ⊆ X ×ˢ Y) :
-    (margSnd Γ).support ⊆ Y := by
+    (margSnd Γ).coeff.support ⊆ Y := by
   intro z hz
   obtain ⟨q, hq, rfl⟩ := Finset.mem_image.mp
     (support_subset_image_of_pushWeight (pushWeight_snd_eq_margSnd Γ) hz)
@@ -416,7 +416,7 @@ theorem coupled_link0 {Γ : Finset (G × G)} (hΓ : Γ.Nonempty) :
       simp only [Prod.mk.injEq] at hab; exact Prod.ext hab.1 hab.2), entropy_uniform] at h
   exact h
 
-/-- **The coupled Ruzsa triangle inequality** (Lemma 4.2).  If the pairs in `Γ` have pairwise distinct differences, then for
+/-- **The coupled Ruzsa triangle inequality** (Lemma 3.2).  If the pairs in `Γ` have pairwise distinct differences, then for
 every law `W`: `log #Γ + H(W) ≤ H(X₁ + W) + H(Y₁ + W)`, because
 `(X₁, Y₁, W) ↦ (X₁ + W, Y₁ + W)` is injective. -/
 theorem coupled_link {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
@@ -430,7 +430,7 @@ theorem coupled_link {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
   have h := pushEntropy_pair_le hp hs (fun ω : (G × G) × G => ω.1.1 + ω.2)
     (fun ω : (G × G) × G => ω.1.2 + ω.2)
   have hΦ : Set.InjOn (fun ω : (G × G) × G => (ω.1.1 + ω.2, ω.1.2 + ω.2))
-      ↑(Γ ×ˢ w.support) := by
+      ↑(Γ ×ˢ w.coeff.support) := by
     intro a ha b hb hab
     simp only [Prod.mk.injEq] at hab
     have ha' := Finset.mem_product.mp ha
@@ -445,17 +445,17 @@ theorem coupled_link {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
       exact add_left_cancel this
     exact Prod.ext hq ht
   rw [pushEntropy_eq_entropy_of_injOn hΦ] at h
-  have hent : entropy (Γ ×ˢ w.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w))
+  have hent : entropy (Γ ×ˢ w.coeff.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w.coeff))
       = Real.log #Γ + ent w := by
-    rw [show productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w)
-        = fun z : (G × G) × G => (fun _ => (#Γ : ℝ)⁻¹) z.1 * (⇑w) z.2 from rfl,
+    rw [show productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w.coeff)
+        = fun z : (G × G) × G => (fun _ => (#Γ : ℝ)⁻¹) z.1 * (⇑w.coeff) z.2 from rfl,
       entropy_product hu0 hw.nonneg_on (uniform_sum hΓ) hw.2, entropy_uniform]
     rfl
-  have e1 : pushEntropy (Γ ×ˢ w.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w))
+  have e1 : pushEntropy (Γ ×ˢ w.coeff.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w.coeff))
       (fun ω : (G × G) × G => ω.1.1 + ω.2) = ent (margFst Γ * w) :=
     pushEntropy_eq_ent (pushWeight_add_eq_mul (F₂ := id) (pushWeight_fst_eq_margFst Γ)
       (pushWeight_support_id w))
-  have e2 : pushEntropy (Γ ×ˢ w.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w))
+  have e2 : pushEntropy (Γ ×ˢ w.coeff.support) (productLaw (fun _ => (#Γ : ℝ)⁻¹) (⇑w.coeff))
       (fun ω : (G × G) × G => ω.1.2 + ω.2) = ent (margSnd Γ * w) :=
     pushEntropy_eq_ent (pushWeight_add_eq_mul (F₂ := id) (pushWeight_snd_eq_margSnd Γ)
       (pushWeight_support_id w))

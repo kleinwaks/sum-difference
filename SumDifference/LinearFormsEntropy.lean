@@ -8,9 +8,9 @@ For a list `l` of integer coefficient vectors `c = (c₁, c₂, c₃, c₄)` we 
 
   `HL Γ l = H((c₁X₁ + c₂Y₁ + c₃X₂ + c₄Y₂)_{c ∈ l})`
 
-for the joint entropy of the corresponding linear forms (written `𝐇[F]` in §4.3 of
+for the joint entropy of the corresponding linear forms (written `𝐇[F]` in §3.3 of
 the proof paper).  This file provides the entropy calculus used by the two-copy
-inequality (Proposition 5.1, `SumDifference/ThetaTwoCopyLemma.lean`):
+inequality (Proposition 4.1, `SumDifference/ThetaTwoCopyLemma.lean`):
 
 * `HL_eq_of_det`: two lists of forms that determine each other have the same joint entropy,
   where "determine" (`Det`) is witnessed by integer linear combinations, possibly using that
@@ -204,7 +204,7 @@ theorem HL_nil (Γ : Finset (G × G)) (hΓ : Γ.Nonempty) : HL Γ [] = 0 := by
   have := pushEntropy_le_log_card (s := Γ ×ˢ Γ) (p := pw Γ)
     (f := fun q => ([] : List V4).map fun c => form c q) (t := {[]}) (pw_nonneg Γ) (pw_sum hΓ)
     (fun q _ => by simp)
-  simpa using this
+  simpa [HL] using this
 
 /-! ## Exchanging the two pairs -/
 

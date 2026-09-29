@@ -3,7 +3,7 @@
 
 `SumDifference/FinEntropy.lean` gives `entropy`/`pushEntropy` and the maximum-entropy bound;
 `SumDifference/JointEntropy.lean` adds the chain rule for pushforwards, data processing and
-subadditivity.  This file develops, from scratch, submodularity (fact (E3) of §4.1 of
+subadditivity.  This file develops, from scratch, submodularity (fact (E3) of §3.1 of
 the proof paper) and a Shearer-type inequality; only submodularity and the
 auxiliary tools listed below are used in the proof of the paper:
 

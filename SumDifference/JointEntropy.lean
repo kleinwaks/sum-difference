@@ -170,7 +170,6 @@ theorem entropy_le_pushEntropy_fst_add_snd {K : Finset (α × β)} {P : α × β
     rw [hfac]
     simp [Real.negMulLog, hpg, pushWeight]
   refine hgibbs.trans (le_of_eq ?_)
-  simp only []
   rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib, hm1, hm2]
 
 /-- **Subadditivity of entropy**: `H(f, g) ≤ H(f) + H(g)`. -/

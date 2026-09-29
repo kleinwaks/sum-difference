@@ -9,9 +9,9 @@ that for every `k ≥ 0`
 
   `(b,z‖a) + k·([abcd] + (a,z‖b) + (a,b‖z)) + k(k-1)/2·((a,c‖b) + (a,b‖c)) ≥ 0`,
 
-and the same with `[abcd]` replaced by `[acbd]` (Theorem 4.4 of the proof paper,
+and the same with `[abcd]` replaced by `[acbd]` (Theorem 3.4 of the proof paper,
 where the left-hand side is written `M_k[abcd]`, resp. `M_k[acbd]`).  The proof is by induction
-on `k`: by the copy lemma (`copy_step`, Lemma 4.6) one may replace `z` by a copy that is
+on `k`: by the copy lemma (`copy_step`, Lemma 3.6) one may replace `z` by a copy that is
 conditionally independent of `(c, d)` given `(a, b)`; the inequality for `k`, applied to
 `(a, c, b, d, z)` with the other Ingleton variant, finitely many Shannon inequalities and
 `(cd, z‖ab) = 0` then give the inequality for `k + 1`.
@@ -210,7 +210,7 @@ theorem HS_copy_ci {s : Finset ι} {p : ι → ℝ} (hp : ∀ i ∈ s, 0 ≤ p i
   rw [e1, e2, e3, e4] at key
   exact key
 
-/-- **The copy step** (Lemma 4.6), shared by `matus_ineq` and `companion_ineq`: for five
+/-- **The copy step** (Lemma 3.6), shared by `matus_ineq` and `companion_ineq`: for five
 variables `a, b, c, d, z` (`v 0, …, v 4`) there is a new family on a finite probability space with
 the same joint law of `(a, b, c, d)`, the same joint law of `(a, b, z)`, and with `z` conditionally
 independent of `(c, d)` given `(a, b)`.  (It is `copyFam v` on the copy space over the key `(a, b)`.) -/
@@ -257,7 +257,7 @@ noncomputable def matusL (h : Finset (Fin 5) → ℝ) (k : ℝ) (sw : Bool) : �
     + (k * (k - 1) / 2) * (- h {1} - h {2} + h {0, 1} + h {0, 2} + 2 * h {1, 2} - 2 * h {0, 1, 2})
 
 set_option maxHeartbeats 2000000 in
-/-- **Matúš's inequalities** (Theorem 4.4; F. Matúš, *Infinitely many information inequalities*,
+/-- **Matúš's inequalities** (Theorem 3.4; F. Matúš, *Infinitely many information inequalities*,
 2007):
 for five random variables `a, b, c, d, z` (here `v 0, …, v 4`) on a finite probability space and
 every `k ∈ ℕ`,

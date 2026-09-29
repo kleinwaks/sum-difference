@@ -60,8 +60,9 @@ lemma B_one_zero : B 1 0 = 1 := by
   have hd : ∀ t ∈ Set.uIcc (0:ℝ) 1,
       HasDerivAt (fun t => (t - 1) * exp t) (t ^ 1 * (1 - t) ^ 0 * exp t) t := by
     intro t _
-    have := ((hasDerivAt_id t).sub_const 1).mul (hasDerivAt_exp t)
-    convert this using 1; simp; ring
+    refine (((hasDerivAt_id t).sub_const 1).mul (hasDerivAt_exp t)).congr_deriv ?_
+    dsimp
+    ring
   rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hd
     (by apply Continuous.intervalIntegrable; fun_prop)]
   simp
@@ -71,8 +72,9 @@ lemma B_zero_succ (k : ℕ) : B 0 (k + 1) = (k + 1) * B 0 k - 1 := by
       (t ^ 0 * (1 - t) ^ (k + 1) * exp t - (k + 1) * (t ^ 0 * (1 - t) ^ k * exp t)) t := by
     intro t _
     have h1 := ((hasDerivAt_const t (1:ℝ)).sub (hasDerivAt_id t)).pow (k + 1)
-    have := h1.mul (hasDerivAt_exp t)
-    convert this using 1; simp; ring
+    refine (h1.mul (hasDerivAt_exp t)).congr_deriv ?_
+    simp only [Pi.pow_apply, Pi.sub_apply, id_eq, Nat.add_sub_cancel, Nat.cast_add, Nat.cast_one]
+    ring
   have hint := intervalIntegral.integral_eq_sub_of_hasDerivAt hd
     (by apply Continuous.intervalIntegrable; fun_prop)
   rw [intervalIntegral.integral_sub (by apply Continuous.intervalIntegrable; fun_prop)

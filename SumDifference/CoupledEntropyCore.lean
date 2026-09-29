@@ -1,10 +1,10 @@
 /-
-# The coupled pair and the grid `h(i, j)` (§4.2 of the proof paper)
+# The coupled pair and the grid `h(i, j)` (§3.2 of the proof paper)
 
 `P μ ν i j = μ^i ν^j` (the law of `i` copies of `μ` plus `j` copies of `ν`, so that
 `h(i, j) = ent (P μ ν i j)`), the choice of one pair per difference (`exists_coupling`,
-Lemma 4.1), the coupled Ruzsa triangle inequality on the grid (`link`, Lemma 4.2) and the grid
-concavity lemma (`grid_concave`, Lemma 4.3).  The general Madiman and monotonicity rows for
+Lemma 3.1), the coupled Ruzsa triangle inequality on the grid (`link`, Lemma 3.2) and the grid
+concavity lemma (`grid_concave`, Lemma 3.3).  The general Madiman and monotonicity rows for
 arbitrary count vectors (`mad`, `mono`) are also recorded; the proof of the paper uses only their
 unit-step cases, through `grid_concave`.
 -/
@@ -57,7 +57,7 @@ theorem ent_concave_step {α β : AddMonoidAlgebra ℝ G} (hα : IsLaw α) (hβ 
   rw [show α * β * α = α * α * β by ring, show β * α = α * β by ring] at h
   linarith
 
-/-- **Grid concavity lemma** (Lemma 4.3).  The array `h(i, j) = H(μ^i ν^j)` is discretely
+/-- **Grid concavity lemma** (Lemma 3.3).  The array `h(i, j) = H(μ^i ν^j)` is discretely
 concave and nondecreasing along each axis.  These are the only properties of `h` used by the grid
 lemma (Proposition 5.1), besides the links and the two-copy inequality. -/
 theorem grid_concave {μ ν : AddMonoidAlgebra ℝ G} (hμ : IsLaw μ) (hν : IsLaw ν) (i j : ℕ) :
@@ -79,7 +79,7 @@ theorem grid_concave {μ ν : AddMonoidAlgebra ℝ G} (hμ : IsLaw μ) (hν : Is
   rw [mul_comm, e4] at m2
   exact ⟨c1, c2, m1, m2⟩
 
-/-- The coupled Ruzsa triangle inequality on the grid (Lemma 4.2):
+/-- The coupled Ruzsa triangle inequality on the grid (Lemma 3.2):
 `L + h(i, j) ≤ h(i + 1, j) + h(i, j + 1)`. -/
 theorem link {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
     (hinj : ∀ q ∈ Γ, ∀ q' ∈ Γ, q.1 - q.2 = q'.1 - q'.2 → q = q') (i j : ℕ) :
@@ -93,7 +93,7 @@ theorem link {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
     simp only [P, pow_succ]; ring
   rwa [e1, e2] at h
 
-/-- One representative pair for every difference (Lemma 4.1). -/
+/-- One representative pair for every difference (Lemma 3.1). -/
 theorem exists_coupling (X Y : Finset G) :
     ∃ Γ : Finset (G × G), Γ ⊆ X ×ˢ Y ∧ #Γ = #(X - Y) ∧
       ∀ q ∈ Γ, ∀ q' ∈ Γ, q.1 - q.2 = q'.1 - q'.2 → q = q' := by

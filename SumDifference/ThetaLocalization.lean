@@ -6,10 +6,10 @@ public import SumDifference.ThetaDefs
 /-!
 # Localisation and Plünnecke–Ruzsa for the transfer (Part I)
 
-§3 of the proof paper: the reduction to the window `|A+B| ≤ 2|A|`
-(`admissible_le_of_rpow_bound`, Lemma 3.1), the maximal translate packing
-(`exists_translate_packing`, Lemma 3.2), the localisation inequality
-(`card_sub_mul_card_le_localized_const`, Lemma 3.3, stated with an optional constant `C`) and the
+§2 of the proof paper: the reduction to the window `|A+B| ≤ 2|A|`
+(`admissible_le_of_rpow_bound`, Lemma 2.1), the maximal translate packing
+(`exists_translate_packing`, Lemma 2.2), the localisation inequality
+(`card_sub_mul_card_le_localized_const`, Lemma 2.3, stated with an optional constant `C`) and the
 Plünnecke–Ruzsa inequality in real form (`card_nsmul_sub_nsmul_le_real`).
 -/
 
@@ -19,7 +19,7 @@ open Finset Pointwise
 
 namespace SumsDifferences
 
-/-- **Reduction to `K = 2`** (Lemma 3.1): an inequality `|A-B| ≤ C |A+B|^r` valid on the whole
+/-- **Reduction to `K = 2`** (Lemma 2.1): an inequality `|A-B| ≤ C |A+B|^r` valid on the whole
 window `|A+B| ≤ 2|A|` forces every admissible exponent to be at most `r`. -/
 theorem admissible_le_of_rpow_bound {θ r C : ℝ} (hC : 0 < C)
     (hbound : ∀ A B : Finset ℤ, A.Nonempty → B.Nonempty → (#(A + B) : ℝ) ≤ 2 * #A →
@@ -70,7 +70,7 @@ namespace ConverseAmplification
 
 variable {G : Type*} [DecidableEq G] [AddCommGroup G]
 
-/-- **Maximal translate packing** (Lemma 3.2).  For finite `A` and nonempty `D` there is `T ⊆ A` whose
+/-- **Maximal translate packing** (Lemma 2.2).  For finite `A` and nonempty `D` there is `T ⊆ A` whose
 translates `t + D` are pairwise disjoint and such that every `a ∈ A` satisfies
 `a − t ∈ D − D` for some `t ∈ T`. -/
 theorem exists_translate_packing (A D : Finset G) (hD : D.Nonempty) :
@@ -129,7 +129,7 @@ theorem le_rpow_mul_of_le_of_le_rpow {x U v lam : ℝ} (hx : 0 ≤ x) (hlam : 1 
   rw [h1]
   exact mul_le_mul h2 h3 (Real.rpow_nonneg hx _) (Real.rpow_nonneg (hx.trans hU) _)
 
-/-- **The localisation inequality with a constant** (Lemma 3.3 with a constant `C`).  If every subset `X ⊆ A` lying in a
+/-- **The localisation inequality with a constant** (Lemma 2.3 with a constant `C`).  If every subset `X ⊆ A` lying in a
 translate of `D − D` satisfies `|X − B| ≤ C|X + B|^λ` (`C > 0`, `λ ≥ 1`), then for every nonempty
 `D`, `|A − B| · |D| ≤ C^{1/λ} |D − D − B|^{1−1/λ} · |A + B| · |D − D + D − B|`. -/
 theorem card_sub_mul_card_le_localized_const (A B D : Finset G) (hD : D.Nonempty) {lam C : ℝ}
@@ -240,7 +240,7 @@ theorem card_sub_mul_card_le_localized_const (A B D : Finset G) (hD : D.Nonempty
         mul_le_mul_of_nonneg_left hsum (by positivity)
     _ = _ := by ring
 
-/-- **The localisation inequality** (Lemma 3.3, `C = 1`).  If every subset `X ⊆ A` lying in a translate of `D − D`
+/-- **The localisation inequality** (Lemma 2.3, `C = 1`).  If every subset `X ⊆ A` lying in a translate of `D − D`
 satisfies the pair ceiling `|X − B| ≤ |X + B|^λ`, then for every nonempty `D`
 `|A − B| · |D| ≤ |D − D − B|^{1−1/λ} · |A + B| · |D − D + D − B|`. -/
 theorem card_sub_mul_card_le_localized (A B D : Finset G) (hD : D.Nonempty) {lam : ℝ}

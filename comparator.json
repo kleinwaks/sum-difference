@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SumDifferenceResults.pair_bound",
+    "SumDifferenceResults.transfer_bound",
+    "SumDifferenceResults.transfer_pair_exponent",
+    "SumDifferenceResults.pair_exponent_bound",
+    "SumDifferenceResults.theta_bound",
+    "SumDifferenceResults.multiscale_bound"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

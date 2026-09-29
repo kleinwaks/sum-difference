@@ -3,7 +3,7 @@
 
 `HS_eq_HL2`: the five-variable set function `HS` of pair-valued variables
 `q ↦ (form (cv₁ j) q, form (cv₂ j) q)` equals the joint entropy `HL` of all the forms involved.
-This lets the non-Shannon inequalities (Theorems 4.4 and 4.5 of the proof paper)
+This lets the non-Shannon inequalities (Theorems 3.4 and 3.5 of the proof paper)
 be applied to joint variables such as the pair `(X₁, Y₂)`, as in several rows of Table 2.
 -/
 import Mathlib

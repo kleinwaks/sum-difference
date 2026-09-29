@@ -5,7 +5,7 @@ The product `p ⊗ r` of two laws (`productLaw`), the product formula for the la
 `(f(ω), g(λ))` (`pushWeight_productLaw_pair`) and **additivity** `H(f ⊗ g) = H(f) + H(g)`
 (`pushEntropy_productLaw_pair`, with the corollaries `pushEntropy_productLaw_fst/snd`).
 
-Used by `EntropySumsetCalculus.lean` for the independence statements of §4 of
+Used by `EntropySumsetCalculus.lean` for the independence statements of §3 of
 the proof paper (fact (E2)).
 -/
 import Mathlib

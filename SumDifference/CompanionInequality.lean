@@ -2,7 +2,7 @@
 # The companion family of five-variable non-Shannon inequalities
 
 The family of E. P. Csirmaz and L. Csirmaz (*Information inequalities for five random
-variables*, arXiv:2512.23316v2, equation (31); Theorem 4.5 of the proof paper, where the left-hand side is written
+variables*, arXiv:2512.23316v2, equation (31); Theorem 3.5 of the proof paper, where the left-hand side is written
 `C_k[abcd]`, resp. `C_k[acbd]`): for every `k ≥ 0`,
 
   `(a,b‖z) + k·(slb + (a,z‖b) + (b,z‖a)) + k(k-1)/2·((a,c‖b) + (b,c‖a)) ≥ 0`,
@@ -62,7 +62,7 @@ theorem HS_joint {s : Finset ι} {p : ι → ℝ} (hp : ∀ i ∈ s, 0 ≤ p i) 
       simp [hj, hjT, h4T, jointFam]
     · simp [hj]
 
-/-- The expression `C_k` of Theorem 4.5, written out on the subsets of
+/-- The expression `C_k` of Theorem 3.5, written out on the subsets of
 `{a, b, c, d, z} = {0, 1, 2, 3, 4}`:
 `(a,b‖z) + k·(slb + (a,z‖b) + (b,z‖a)) + k(k-1)/2·((a,c‖b) + (b,c‖a))`, where
 `slb = [abcd]` (`sw = false`) or `slb = [acbd]` (`sw = true`). -/
@@ -73,7 +73,7 @@ noncomputable def compL (h : Finset (Fin 5) → ℝ) (k : ℝ) (sw : Bool) : ℝ
     + (k * (k - 1) / 2) * (- h {0} - h {1} + 2 * h {0, 1} + h {0, 2} + h {1, 2} - 2 * h {0, 1, 2})
 
 set_option maxHeartbeats 4000000 in
-/-- **The Csirmaz–Csirmaz family of non-Shannon inequalities** (Theorem 4.5): for five random
+/-- **The Csirmaz–Csirmaz family of non-Shannon inequalities** (Theorem 3.5): for five random
 variables `a, b, c, d, z`
 (here `v 0, …, v 4`) on a finite probability space and every `k ∈ ℕ`,
 `(a,b‖z) + k·([abcd] + (a,z‖b) + (b,z‖a)) + k(k-1)/2·((a,c‖b) + (b,c‖a)) ≥ 0`, and the same with

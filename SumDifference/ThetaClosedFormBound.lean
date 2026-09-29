@@ -1,18 +1,18 @@
 /-
-# Theorem 2.1 and Corollary 2.3 of the proof paper
+# Theorem 1.1 and Corollary 1.3 of the proof paper
 
-1. **Proposition 5.1** (`CoupledForms.two_copy_ineq`, `SumDifference/ThetaTwoCopyLemma.lean`) for the
+1. **Proposition 4.1** (`CoupledForms.two_copy_ineq`, `SumDifference/ThetaTwoCopyLemma.lean`) for the
    coupling `Γ` and for its mirror image `Γ' = {(−y, −x)}` (a coupling for `(−Y, −X)`, with the same
    `L` and `log |X+Y|` and with `h'(i,j) = h(j,i)`); their average is the symmetric two-copy
-   inequality (Corollary 5.3, `two_copy_ineq_sym`)
+   inequality (Corollary 4.3, `two_copy_ineq_sym`)
    `22882 L ≤ 5820 log s + 8694 h(1,1) + 11645 (h(1,0)+h(0,1)) + 685 (h(2,0)+h(0,2))`.
-2. The grid lemma (Proposition 6.1, `GridClosedForm.grid_closed_form`) gives
+2. The grid lemma (Proposition 5.1, `GridClosedForm.grid_closed_form`) gives
    `(21512 e + 3148) L ≤ (37804 e − 13144) log s` (`ClosedForm.log_card_le_of_coupling_closed`),
-   hence **Theorem 2.1** (`pair_ceiling_entropic`): `|X − Y| ≤ |X + Y|^{λ∞}` for finite sets in
+   hence **Theorem 1.1** (`pair_ceiling_entropic`): `|X − Y| ≤ |X + Y|^{λ∞}` for finite sets in
    *any* abelian group, `λ∞ = (9451 e − 3286)/(5378 e + 787)`, with no constant.
-3. With `G = ℤ` this gives `λ_* ≤ λ∞` (`lamSup_le_closed_form`), and Theorem 2.2
+3. With `G = ℤ` this gives `λ_* ≤ λ∞` (`lamSup_le_closed_form`), and Theorem 1.2
    (`theta_le_two_sub_inv_lamSup`, `SumDifference/ThetaMultiScaleCore.lean`) gives
-   **Corollary 2.3** (`theta_le_closed_form`):
+   **Corollary 1.3** (`theta_le_closed_form`):
    `θ ≤ 2 − 1/λ∞ = (13524 e − 7359)/(9451 e − 3286) ≈ 1.3123733021151`.
 -/
 import Mathlib
@@ -49,18 +49,18 @@ noncomputable def negMap : AddMonoidAlgebra ℝ G →+* AddMonoidAlgebra ℝ G :
   AddMonoidAlgebra.mapDomainRingHom ℝ (negAddMonoidHom : G →+ G)
 
 omit [DecidableEq G] in
-lemma negMap_apply_neg (f : AddMonoidAlgebra ℝ G) (y : G) : negMap f (-y) = f y := by
-  show Finsupp.mapDomain (fun x : G => -x) f (-y) = f y
-  exact Finsupp.mapDomain_apply neg_injective f y
+lemma negMap_apply_neg (f : AddMonoidAlgebra ℝ G) (y : G) : (negMap f).coeff (-y) = f.coeff y := by
+  show Finsupp.mapDomain (fun x : G => -x) f.coeff (-y) = f.coeff y
+  exact Finsupp.mapDomain_apply_of_injective neg_injective f.coeff y
 
 omit [DecidableEq G] in
 lemma negMap_single (a : G) (r : ℝ) :
     negMap (AddMonoidAlgebra.single a r) = AddMonoidAlgebra.single (-a) r := by
-  show Finsupp.mapDomain (fun x : G => -x) (Finsupp.single a r) = Finsupp.single (-a) r
-  exact Finsupp.mapDomain_single
+  show AddMonoidAlgebra.mapDomain (fun x : G => -x) (AddMonoidAlgebra.single a r) = AddMonoidAlgebra.single (-a) r
+  exact AddMonoidAlgebra.mapDomain_single
 
 lemma ent_negMap (f : AddMonoidAlgebra ℝ G) : ent (negMap f) = ent f := by
-  have hsub : (negMap f).support ⊆ f.support.image (fun x => -x) := by
+  have hsub : (negMap f).coeff.support ⊆ f.coeff.support.image (fun x => -x) := by
     intro z hz
     rw [Finsupp.mem_support_iff] at hz
     refine Finset.mem_image.mpr ⟨-z, ?_, neg_neg z⟩
@@ -89,7 +89,7 @@ lemma ent_P_mirror (Γ : Finset (G × G)) (i j : ℕ) :
   unfold P
   rw [← map_pow, ← map_pow, ← map_mul, ent_negMap, mul_comm]
 
-/-- **Symmetric two-copy inequality** (Corollary 5.3): the average of Proposition 5.1 for `Γ` and
+/-- **Symmetric two-copy inequality** (Corollary 4.3): the average of Proposition 4.1 for `Γ` and
 for its mirror image. -/
 theorem two_copy_ineq_sym {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
     (hinj : ∀ q ∈ Γ, ∀ q' ∈ Γ, q.1 - q.2 = q'.1 - q'.2 → q = q') {X Y : Finset G}
@@ -133,8 +133,8 @@ lemma ent_nonneg_of_isLaw {f : AddMonoidAlgebra ℝ G} (hf : IsLaw f) : 0 ≤ en
   rw [← hf.2]
   exact Finset.single_le_sum (fun y _ => hf.1 y) hx
 
-/-- **Entropic pair inequality** (proof of Theorem 2.1): Lemmas 4.2, 4.3, Corollary 5.3 and
-Proposition 6.1 give `(21512 e + 3148) log #Γ ≤ (37804 e − 13144) log #(X + Y)`. -/
+/-- **Entropic pair inequality** (proof of Theorem 1.1): Lemmas 3.2, 3.3, Corollary 4.3 and
+Proposition 5.1 give `(21512 e + 3148) log #Γ ≤ (37804 e − 13144) log #(X + Y)`. -/
 theorem log_card_le_of_coupling_closed {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
     (hinj : ∀ q ∈ Γ, ∀ q' ∈ Γ, q.1 - q.2 = q'.1 - q'.2 → q = q') {X Y : Finset G}
     (hXY : Γ ⊆ X ×ˢ Y) :
@@ -149,7 +149,7 @@ theorem log_card_le_of_coupling_closed {Γ : Finset (G × G)} (hΓ : Γ.Nonempty
   have := ent_mul_le_log_card hμ hν (support_margFst_subset hXY) (support_margSnd_subset hXY)
   simpa [P] using this
 
-/-- The exponent `λ∞ = (37804 e − 13144)/(21512 e + 3148) ≈ 1.4542774489` of Theorem 2.1. -/
+/-- The exponent `λ∞ = (37804 e − 13144)/(21512 e + 3148) ≈ 1.4542774489` of Theorem 1.1. -/
 noncomputable def lamInf : ℝ := (37804 * exp 1 - 13144) / (21512 * exp 1 + 3148)
 
 lemma one_le_lamInf : 1 ≤ lamInf := by
@@ -186,7 +186,7 @@ lemma lamInf_eq : lamInf = (9451 * exp 1 - 3286) / (5378 * exp 1 + 787) := by
 
 end ClosedForm
 
-/-- **Theorem 2.1: the entropic pair ceiling.**  In *every* abelian group, for all finite sets `X`,
+/-- **Theorem 1.1: the entropic pair ceiling.**  In *every* abelian group, for all finite sets `X`,
 `Y`, with no constant:
 `|X − Y| ≤ |X + Y|^{λ∞}`, `λ∞ = (9451 e − 3286)/(5378 e + 787) ≈ 1.4542774489`. -/
 theorem pair_ceiling_entropic {G : Type*} [AddCommGroup G] [DecidableEq G] (X Y : Finset G) :
@@ -194,12 +194,12 @@ theorem pair_ceiling_entropic {G : Type*} [AddCommGroup G] [DecidableEq G] (X Y 
   rw [← ClosedForm.lamInf_eq]
   exact ClosedForm.card_sub_le_rpow_closed X Y
 
-/-- **`λ_* ≤ λ∞`** (proof of Corollary 2.3): the pair exponent is at most the entropic
+/-- **`λ_* ≤ λ∞`** (proof of Corollary 1.3): the pair exponent is at most the entropic
 exponent. -/
 theorem lamSup_le_closed_form : lamSup ≤ (9451 * exp 1 - 3286) / (5378 * exp 1 + 787) :=
   lamSup_le_of_pair_ceiling pair_ceiling_entropic
 
-/-- **Corollary 2.3: `θ ≤ (13524 e − 7359)/(9451 e − 3286) ≈ 1.3123733021151`**, from
+/-- **Corollary 1.3: `θ ≤ (13524 e − 7359)/(9451 e − 3286) ≈ 1.3123733021151`**, from
 `θ ≤ 2 − 1/λ_*` (Theorem 1.2, `theta_le_two_sub_inv_lamSup`) and `λ_* ≤ λ∞`
 (`lamSup_le_closed_form`); standard axioms only. -/
 theorem theta_le_closed_form : theta ≤ (13524 * exp 1 - 7359) / (9451 * exp 1 - 3286) := by
@@ -217,7 +217,7 @@ theorem theta_le_closed_form : theta ≤ (13524 * exp 1 - 7359) / (9451 * exp 1 
     ring
   linarith
 
-/-- The bound of Corollary 2.3 is smaller than `2 − 1/λ₂₁ = 50808459084/38714944141`, where
+/-- The bound of Corollary 1.3 is smaller than `2 − 1/λ₂₁ = 50808459084/38714944141`, where
 `λ₂₁ = 38714944141/26621429198`; the difference is about `1.2·10⁻¹¹`. -/
 theorem closed_form_lt_degree21 :
     (13524 * exp 1 - 7359) / (9451 * exp 1 - 3286) < 50808459084 / 38714944141 := by

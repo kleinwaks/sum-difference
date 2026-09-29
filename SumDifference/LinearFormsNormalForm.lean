@@ -4,7 +4,7 @@
 `HL Γ l` (`SumDifference/LinearFormsEntropy.lean`) is the joint entropy of the integer linear forms
 `l` in two independent copies `(X₁, Y₁)`, `(X₂, Y₂)` of a coupled pair.  It depends only on the
 lattice spanned by `l`, closed under "`X_k − Y_k` gives `(X_k, Y_k)`" (the differences in `Γ` are
-distinct), and it is invariant under exchanging the copies: rules (R1)–(R3) of §4.3 of
+distinct), and it is invariant under exchanging the copies: rules (R1)–(R3) of §3.3 of
 the proof paper.
 
 This file turns that into **one lemma**, `HL_eq_norm`: `HL Γ l₁ = HL Γ l₂` whenever the Boolean

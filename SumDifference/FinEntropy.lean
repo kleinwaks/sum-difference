@@ -1,7 +1,7 @@
 /-
 # Shannon entropy of a finitely supported law
 
-A minimal, self-contained finite-entropy toolkit (the entropy facts (E1)–(E3) of §4.1 of
+A minimal, self-contained finite-entropy toolkit (the entropy facts (E1)–(E3) of §3.1 of
 the proof paper rest on it).  The required finite-law entropy calculus is developed here from elementary real inequalities:
 
 * `entropy s p = ∑_{i ∈ s} -p i * log (p i)`, the entropy of a weight function;

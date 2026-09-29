@@ -1,5 +1,5 @@
 /-
-# The two-copy inequality (Proposition 5.1 of the paper)
+# The two-copy inequality (Proposition 4.1 of the paper)
 
 For a coupled pair (the uniform law on `Γ ⊆ X × Y`, differences pairwise distinct) with marginals
 `μ, ν`, write `L = log |Γ|` and `h(i,j) = H(μ^{*i} * ν^{*j})`. This file proves
@@ -44,7 +44,7 @@ open CoupledEntropy NonShannon
 
 variable {G : Type*} [AddCommGroup G] [DecidableEq G]
 
-/-! ### The rows of Proposition 5.1, one lemma each (they need only `Γ`, `hΓ`, `hinj`) -/
+/-! ### The rows of Proposition 4.1, one lemma each (they need only `Γ`, `hΓ`, `hinj`) -/
 
 private theorem two_copy_row_s116 (Γ : Finset (G × G)) (hΓ : Γ.Nonempty) (hinj : ∀ q ∈ Γ, ∀ q' ∈ Γ, q.1 - q.2 = q'.1 - q'.2 → q = q') :
     HL Γ [(0, 1, 1, 0), (0, 0, 0, 1)] + HL Γ [] ≤ HL Γ [(0, 0, 0, 1)] + HL Γ [(0, 1, 1, 0)] := by
@@ -1128,7 +1128,7 @@ private theorem two_copy_row_e190 (Γ : Finset (G × G)) (hinj : ∀ q ∈ Γ, �
   simp only [List.map_cons, List.map_nil, sw4]
   exact HL_eq_norm hinj (by decide)
 
-/-- **Two-copy inequality (Proposition 5.1).**  For a coupled pair (uniform on `Γ ⊆ X × Y`, differences
+/-- **Two-copy inequality (Proposition 4.1).**  For a coupled pair (uniform on `Γ ⊆ X × Y`, differences
 pairwise distinct) with marginals `μ, ν` and `h(i,j) = H(μ^{*i} * ν^{*j})`:
 `194497 log|Γ| ≤ 49470 log|X+Y| + 73899 h(1,1) + 99532 h(1,0) + 98433 h(0,1) + 4986 h(2,0) + 6659 h(0,2)`. -/
 theorem two_copy_ineq {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
@@ -1223,7 +1223,7 @@ theorem two_copy_ineq {Γ : Finset (G × G)} (hΓ : Γ.Nonempty)
   have e189 := two_copy_row_e189 Γ hinj
   have e190 := two_copy_row_e190 Γ hinj
   have e0 : HL Γ [] = 0 := HL_nil Γ hΓ
-  -- Proposition 5.1 is the following integer combination of the rows above (the weights of
+  -- Proposition 4.1 is the following integer combination of the rows above (the weights of
   -- Tables 1 and 2 of the proof paper).
   show 194497 * L ≤ 49470 * Real.log #(X + Y) + 73899 * h 1 1 + 99532 * h 1 0 + 98433 * h 0 1
       + 4986 * h 2 0 + 6659 * h 0 2
