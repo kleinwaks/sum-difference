@@ -1,3 +1,5 @@
+module
+
 /-
 # The coupled pair and the grid `h(i, j)` (§3.2 of the proof paper)
 
@@ -8,8 +10,10 @@ concavity lemma (`grid_concave`, Lemma 3.3).  The general Madiman and monotonici
 arbitrary count vectors (`mad`, `mono`) are also recorded; the proof of the paper uses only their
 unit-step cases, through `grid_concave`.
 -/
-import Mathlib
-import SumDifference.EntropySumsetCalculus
+public import Mathlib
+public import SumDifference.EntropySumsetCalculus
+
+@[expose] public section
 
 open Finset Real Pointwise
 

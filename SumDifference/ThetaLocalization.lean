@@ -13,7 +13,7 @@ public import SumDifference.ThetaDefs
 Plünnecke–Ruzsa inequality in real form (`card_nsmul_sub_nsmul_le_real`).
 -/
 
-public section
+@[expose] public section
 
 open Finset Pointwise
 

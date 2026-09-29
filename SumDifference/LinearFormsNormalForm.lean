@@ -1,3 +1,5 @@
+module
+
 /-
 # One normal-form lemma for determination
 
@@ -15,8 +17,10 @@ and, if needed, after exchanging the copies.  The solver is not trusted: its out
 (`verifyWit`), and only that check enters the soundness proof.  So a use of the lemma is closed by
 `decide`, with no witnesses written out.
 -/
-import Mathlib
-import SumDifference.LinearFormsEntropy
+public import Mathlib
+public import SumDifference.LinearFormsEntropy
+
+@[expose] public section
 
 namespace SumsDifferences
 

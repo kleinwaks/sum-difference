@@ -1,3 +1,5 @@
+module
+
 /-
 # Equality cases of the finite-entropy inequalities
 
@@ -16,9 +18,11 @@ inequalities they sum must then be an equality; the strictness input is
 `Real.log_lt_sub_one_of_pos`.  The proof of the proof paper uses only the
 last section (`pushWeight_le_one`, `pushEntropy_nonneg`: entropy is nonnegative).
 -/
-import Mathlib
-import SumDifference.FinEntropy
-import SumDifference.JointEntropy
+public import Mathlib
+public import SumDifference.FinEntropy
+public import SumDifference.JointEntropy
+
+@[expose] public section
 
 open Finset Real
 

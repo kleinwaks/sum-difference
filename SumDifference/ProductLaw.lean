@@ -1,3 +1,5 @@
+module
+
 /-
 # Product laws: independence and additivity of entropy
 
@@ -8,10 +10,12 @@ The product `p ⊗ r` of two laws (`productLaw`), the product formula for the la
 Used by `EntropySumsetCalculus.lean` for the independence statements of §3 of
 the proof paper (fact (E2)).
 -/
-import Mathlib
-import SumDifference.FinEntropy
-import SumDifference.JointEntropy
-import SumDifference.CondEntropy
+public import Mathlib
+public import SumDifference.FinEntropy
+public import SumDifference.JointEntropy
+public import SumDifference.CondEntropy
+
+@[expose] public section
 
 open Finset
 

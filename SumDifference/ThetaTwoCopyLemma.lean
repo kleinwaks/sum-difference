@@ -1,3 +1,5 @@
+module
+
 /-
 # The two-copy inequality (Proposition 4.1 of the paper)
 
@@ -27,12 +29,14 @@ The final step is a `linear_combination` with the integer weights of Tables 1 an
 The complete certificate is contained in this file; no external data or generator is needed
 to check it. The certificate was found computationally and is verified by the proof below.
 -/
-import Mathlib
-import SumDifference.LinearFormsEntropy
-import SumDifference.LinearFormsNormalForm
-import SumDifference.CoupledEntropyCore
-import SumDifference.CompanionInequality
-import SumDifference.LinearFormsPairs
+public import Mathlib
+public import SumDifference.LinearFormsEntropy
+public import SumDifference.LinearFormsNormalForm
+public import SumDifference.CoupledEntropyCore
+public import SumDifference.CompanionInequality
+public import SumDifference.LinearFormsPairs
+
+@[expose] public section
 
 open Finset Real Pointwise
 

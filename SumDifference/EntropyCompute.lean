@@ -1,3 +1,5 @@
+module
+
 /-
 # Computing and combining finite entropies
 
@@ -17,9 +19,11 @@ together with the elementary formula
   cardinalities divided by `#s`, which turns any concrete entropy into a finite sum of
   `negMulLog`s of rational numbers.
 -/
-import Mathlib
-import SumDifference.FinEntropy
-import SumDifference.JointEntropy
+public import Mathlib
+public import SumDifference.FinEntropy
+public import SumDifference.JointEntropy
+
+@[expose] public section
 
 open Finset
 

@@ -1,3 +1,5 @@
+module
+
 /-
 # Conditional entropy, submodularity and Shearer's inequality for finitely supported laws
 
@@ -24,9 +26,11 @@ Auxiliary tools proved on the way:
 
 Everything is proved from Gibbs' inequality (`entropy_le_of_gibbs`).
 -/
-import Mathlib
-import SumDifference.FinEntropy
-import SumDifference.JointEntropy
+public import Mathlib
+public import SumDifference.FinEntropy
+public import SumDifference.JointEntropy
+
+@[expose] public section
 
 open Finset
 

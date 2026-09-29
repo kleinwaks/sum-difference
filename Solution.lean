@@ -1,4 +1,8 @@
-import SumDifference.ThetaClosedFormBound
+module
+
+public import SumDifference.ThetaClosedFormBound
+
+@[expose] public section
 
 /-!
 # Sum–difference bounds

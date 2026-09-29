@@ -1,3 +1,5 @@
+module
+
 /-
 # Shannon entropy of a finitely supported law
 
@@ -14,7 +16,9 @@ the proof paper rest on it).  The required finite-law entropy calculus is develo
 Everything is proved from the elementary inequality `log t ≤ t - 1`, i.e. from Gibbs'
 inequality; no convexity API is needed.
 -/
-import Mathlib
+public import Mathlib
+
+@[expose] public section
 
 open Finset Real
 

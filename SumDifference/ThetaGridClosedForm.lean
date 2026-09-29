@@ -27,7 +27,7 @@ the row inequality of row `j` (`inv_step`), gives the invariant (6.2)
 `m → ∞` (`grid_closed_sym`).
 -/
 
-public section
+@[expose] public section
 
 
 open Real

@@ -1,3 +1,5 @@
+module
+
 /-
 # Joint entropy, data processing and subadditivity for finitely supported laws
 
@@ -14,8 +16,10 @@ argument with several random variables defined on the same finite probability sp
 The first two are proved from the monotonicity of `log`, the third from Gibbs' inequality
 (`entropy_le_of_gibbs`).
 -/
-import Mathlib
-import SumDifference.FinEntropy
+public import Mathlib
+public import SumDifference.FinEntropy
+
+@[expose] public section
 
 open Finset
 

@@ -1,3 +1,5 @@
+module
+
 /-
 # Matúš's infinite family of non-Shannon entropy inequalities
 
@@ -20,9 +22,11 @@ Here all five variables take values in one type `G`; joint entropies of subfamil
 by `HS s p v S` (the entropy of the tuple `(v j)_{j ∈ S}`, padded with `0`).  Main result:
 `matus_ineq`.
 -/
-import Mathlib
-import SumDifference.CopyLemma
-import SumDifference.EntropyEquality
+public import Mathlib
+public import SumDifference.CopyLemma
+public import SumDifference.EntropyEquality
+
+@[expose] public section
 
 open Finset
 

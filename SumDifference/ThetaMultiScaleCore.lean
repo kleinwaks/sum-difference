@@ -14,7 +14,7 @@ the pair exponent `λ_*` (the pair-exponent definition, `lamSup`) this is `θ �
 allow a constant `C` in the pair ceiling; the paper and the proof of Theorem 1.2 use `C = 1`.
 -/
 
-public section
+@[expose] public section
 
 open Finset Pointwise
 

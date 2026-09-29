@@ -1,3 +1,5 @@
+module
+
 /-
 # The copy lemma for finitely supported laws
 
@@ -17,8 +19,10 @@ This is the Zhang–Yeung copy lemma (Lemma 3.6 of the proof paper, in the form
 `copy_step` of `SumDifference/MatusInequality.lean`), the source of all non-Shannon entropy
 inequalities used in the proof.
 -/
-import Mathlib
-import SumDifference.CondEntropy
+public import Mathlib
+public import SumDifference.CondEntropy
+
+@[expose] public section
 
 open Finset
 

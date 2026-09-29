@@ -1,3 +1,5 @@
+module
+
 /-
 # Joint (pair-valued) variables for the five-variable set function
 
@@ -6,8 +8,10 @@
 This lets the non-Shannon inequalities (Theorems 3.4 and 3.5 of the proof paper)
 be applied to joint variables such as the pair `(X₁, Y₂)`, as in several rows of Table 2.
 -/
-import Mathlib
-import SumDifference.LinearFormsEntropy
+public import Mathlib
+public import SumDifference.LinearFormsEntropy
+
+@[expose] public section
 
 open Finset
 

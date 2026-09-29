@@ -1,3 +1,5 @@
+module
+
 /-
 # The companion family of five-variable non-Shannon inequalities
 
@@ -12,8 +14,10 @@ second proof of Csirmaz–Csirmaz: by the copy lemma replace `z` by a copy `z'` 
 inequality for `k` applied to the joint variables `(az', bz', cz', dz', cz')` (`HS_joint`) plus
 finitely many Shannon inequalities give the inequality for `k + 1`.
 -/
-import Mathlib
-import SumDifference.MatusInequality
+public import Mathlib
+public import SumDifference.MatusInequality
+
+@[expose] public section
 
 open Finset
 

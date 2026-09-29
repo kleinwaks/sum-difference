@@ -1,3 +1,5 @@
+module
+
 /-
 # Entropy of convolutions of finitely supported laws
 
@@ -21,11 +23,13 @@ Main results:
 The entropy toolkit is that of `FinEntropy.lean`, `JointEntropy.lean`, `CondEntropy.lean` and
 `ProductLaw.lean` (product laws and additivity of entropy).
 -/
-import Mathlib
-import SumDifference.FinEntropy
-import SumDifference.JointEntropy
-import SumDifference.CondEntropy
-import SumDifference.ProductLaw
+public import Mathlib
+public import SumDifference.FinEntropy
+public import SumDifference.JointEntropy
+public import SumDifference.CondEntropy
+public import SumDifference.ProductLaw
+
+@[expose] public section
 
 open Finset Real Pointwise
 

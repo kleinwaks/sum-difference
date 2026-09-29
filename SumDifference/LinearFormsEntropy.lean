@@ -1,3 +1,5 @@
+module
+
 /-
 # Joint entropies of linear forms in two independent coupled pairs
 
@@ -25,10 +27,12 @@ inequality (Proposition 4.1, `SumDifference/ThetaTwoCopyLemma.lean`):
 * `HS_eq_HL`: the bridge from the five-variable set function `HS` of
   `SumDifference/MatusInequality.lean` to `HL`.
 -/
-import Mathlib
-import SumDifference.MatusInequality
-import SumDifference.CoupledEntropyCore
-import SumDifference.EntropyCompute
+public import Mathlib
+public import SumDifference.MatusInequality
+public import SumDifference.CoupledEntropyCore
+public import SumDifference.EntropyCompute
+
+@[expose] public section
 
 open Finset Pointwise
 

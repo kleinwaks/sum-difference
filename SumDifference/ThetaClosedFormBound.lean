@@ -1,3 +1,5 @@
+module
+
 /-
 # Theorem 1.1 and Corollary 1.3 of the proof paper
 
@@ -15,10 +17,12 @@
    **Corollary 1.3** (`theta_le_closed_form`):
    `θ ≤ 2 − 1/λ∞ = (13524 e − 7359)/(9451 e − 3286) ≈ 1.3123733021151`.
 -/
-import Mathlib
-import SumDifference.ThetaTwoCopyLemma
-import SumDifference.ThetaGridClosedForm
-import SumDifference.ThetaMultiScaleCore
+public import Mathlib
+public import SumDifference.ThetaTwoCopyLemma
+public import SumDifference.ThetaGridClosedForm
+public import SumDifference.ThetaMultiScaleCore
+
+@[expose] public section
 
 open Finset Real Pointwise
 
