@@ -4,11 +4,12 @@ project:
   name: "Improved sum–difference inequalities in abelian groups"
   description: >-
     For all finite subsets X,Y of an abelian group, 
-    |X-Y| <= |X+Y|^λ with λ = (9451e-3286)/(5378e+787).
+    |X-Y| <= |X+Y|^λ with λ = (9451e-3286)/(5378e+787) = 1.454277448906…,
+    less than the classical exponent 3/2.
     A multiscale transfer gives the upper bound
-    (13524e-7359)/(9451e-3286) for the Gyarmati–Hennecart–Ruzsa
-    small-sumset exponent. The proof of the first result combines a
-    coupling with distinct differences, entropy inequalities for independent
+    (13524e-7359)/(9451e-3286) = 1.312373302115… for the Gyarmati–Hennecart–Ruzsa
+    small-sumset exponent, less than their exponent 4/3. The proof of the first result
+    combines a coupling with distinct differences, entropy inequalities for independent
     sums, a finite certificate using non-Shannon inequalities, and an explicit
     limiting certificate. The transfer uses localization and the Plünnecke-Ruzsa
     inequality over a sequence of scales.
