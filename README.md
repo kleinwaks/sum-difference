@@ -21,6 +21,8 @@ This improves on the classical exponents $\\lambda\\le \frac{3}{2}$ and $C_{3a}\
 For details, see the [proof paper](paper/sum-difference.pdf) or its [LaTeX source](paper/sum-difference.tex).
 The proof paper includes a correspondence with Lean declarations.
 
+Registered at [PALOMAR-2026-09-30-000021 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-09-30-000021&version=1).
+
 ## Reference environment and verification
 
 * Lean: `leanprover/lean4:v4.28.0` (original formalization), `leanprover/lean4:v4.35.0-rc2` (Palomar formalization)
